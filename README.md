@@ -155,12 +155,10 @@ anipulse/
 
 ## ⚖️ Aviso
 
-| | |
-| --- | --- |
-| 🧪 | Projeto **de teste**, sem fins comerciais. **Não está hospedado e não vai ao ar.** |
-| 🗂️ | Dados e imagens dos animes vêm da [AniList](https://anilist.co) e pertencem aos respectivos detentores. |
-| ▶️ | Os trailers são os **oficiais**, incorporados do YouTube. Nenhum vídeo é hospedado aqui. |
-| 📢 | Os espaços de "Publicidade" são só marcadores visuais, sem anúncios reais. |
+- 🧪 Projeto **de teste**, sem fins comerciais. **Não está hospedado e não vai ao ar.**
+- 🗂️ Dados e imagens dos animes vêm da [AniList](https://anilist.co) e pertencem aos respectivos detentores.
+- ▶️ Os trailers são os **oficiais**, incorporados do YouTube. Nenhum vídeo é hospedado aqui.
+- 📢 Os espaços de "Publicidade" são só marcadores visuais, sem anúncios reais.
 
 <p align="center">
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:7c3aed,100:080808&height=1"/>
