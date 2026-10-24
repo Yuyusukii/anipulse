@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AniPulse: catálogo responsivo de animes com trending, busca avançada, favoritos, histórico e trailers oficiais."
+    />
+    <meta name="theme-color" content="#05060c" />
+    <title>AniPulse</title>
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="preconnect" href="https://graphql.anilist.co" />
+    <link rel="preconnect" href="https://s4.anilist.co" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=design-refresh-v48" />
+    <link rel="stylesheet" href="redesign.css?v=20260728" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="AniPulse início">
+          <img class="brand-logo" src="icon.svg" alt="" />
+          <span class="brand-name"><span>Ani</span><strong>Pulse</strong></span>
+        </a>
+
+        <div class="search-shell">
+          <form class="searchbar" id="searchForm">
+            <label class="sr-only" for="searchInput">Buscar anime</label>
+            <input
+              id="searchInput"
+              name="search"
+              type="search"
+              placeholder="Buscar anime, personagens, estúdios..."
+              autocomplete="off"
+            />
+            <button class="icon-button search-submit" type="submit" aria-label="Buscar">⌕</button>
+          </form>
+          <div class="search-history-popover" id="searchHistoryPanel" hidden>
+            <div class="search-history-head">
+              <strong>Histórico de pesquisa</strong>
+              <button class="text-link" type="button" data-clear-search-history>Limpar</button>
+            </div>
+            <div id="searchHistoryList" class="search-history-list"></div>
+          </div>
+        </div>
+
+        <nav class="top-actions" aria-label="Ações rápidas">
+          <button class="nav-pill" type="button" data-quick-trending>🔥 Trending</button>
+          <button class="icon-button" type="button" data-scroll-favorites aria-label="Favoritos">♡</button>
+          <button class="icon-button notification-button" type="button" data-show-notifications aria-label="Notificações">♢</button>
+          <button class="icon-button" id="refreshButton" type="button" aria-label="Atualizar">↻</button>
+          <button class="install-button" id="installButton" type="button" hidden>Instalar</button>
+          <button class="account-chip" type="button" data-open-profile aria-label="Abrir perfil">
+            <img id="accountAvatar" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+            <span>
+              <span class="account-name-row">
+                <i id="accountStatus" class="status-dot status-online" aria-label="Online" title="Online"></i>
+                <strong id="accountName">Akira</strong>
+              </span>
+              <small id="accountLevel">Nível 24</small>
+            </span>
+          </button>
+        </nav>
+      </header>
+
+      <main id="homeView">
+        <section class="showcase" aria-labelledby="showcaseTitle">
+          <div class="showcase-main">
+            <div class="section-kicker">Trending agora</div>
+            <h1 id="showcaseTitle">AniPulse</h1>
+            <div id="spotlight" class="spotlight is-loading">
+              <div class="skeleton poster-skeleton"></div>
+              <div class="spotlight-copy">
+                <div class="skeleton line wide"></div>
+                <div class="skeleton line"></div>
+                <div class="skeleton line short"></div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-sidebar" aria-label="Perfil e publicidade">
+            <div class="hero-profile">
+              <div class="panel-heading">
+                <span>Perfil</span>
+                <button class="text-link" type="button" data-open-profile>Ver tudo</button>
+              </div>
+              <button class="avatar-button" type="button" data-open-profile aria-label="Abrir perfil">
+                <img id="heroProfileAvatar" class="hero-avatar" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+              </button>
+              <h2 class="hero-profile-name"><i id="heroProfileStatus" class="status-dot status-online" aria-label="Online" title="Online"></i><span id="heroProfileName">Akira</span></h2>
+              <div class="level-row">
+                <span id="heroProfileLevel">Nível 24</span>
+                <strong id="heroXpText">8.450 / 12.000 XP</strong>
+              </div>
+              <div class="xp-track"><span id="heroXpFill"></span></div>
+              <div class="profile-stats">
+                <span>
+                  <strong id="heroWatchedCount">0</strong>
+                  <small>Assistidos</small>
+                </span>
+                <span>
+                  <strong id="heroFavoriteCount">0</strong>
+                  <small>Favoritos</small>
+                </span>
+                <span>
+                  <strong id="heroWishlistCount">0</strong>
+                  <small>Na lista</small>
+                </span>
+              </div>
+            </div>
+            <div class="ad-slot ad-tile">
+              <span>Publicidade</span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="rail-band" aria-label="Carrossel de animes em alta">
+          <div id="trendingRail" class="trending-rail"></div>
+        </section>
+
+        <section class="filters-band" aria-label="Filtros de catálogo">
+          <div class="filter-group">
+            <label for="genreFilter">Gênero</label>
+            <select id="genreFilter">
+              <option value="">Todos</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="yearFilter">Ano</label>
+            <select id="yearFilter">
+              <option value="">Todos</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="statusFilter">Status</label>
+            <select id="statusFilter">
+              <option value="">Todos</option>
+              <option value="RELEASING">Lançando</option>
+              <option value="FINISHED">Finalizado</option>
+              <option value="NOT_YET_RELEASED">Em breve</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="sortFilter">Ordenar</label>
+            <select id="sortFilter">
+              <option value="TRENDING_DESC">Trending</option>
+              <option value="POPULARITY_DESC">Popularidade</option>
+              <option value="SCORE_DESC">Nota</option>
+              <option value="START_DATE_DESC">Recentes</option>
+            </select>
+          </div>
+
+          <div class="segmented" role="group" aria-label="Densidade de anúncios">
+            <button class="segment is-active" data-ad-mode="balanced" type="button">Normal</button>
+            <button class="segment" data-ad-mode="high" type="button">Intenso</button>
+          </div>
+        </section>
+
+        <section class="workspace">
+          <div class="catalog-area">
+            <div class="section-heading">
+              <div>
+                <div class="section-kicker">Catálogo</div>
+                <h2 id="catalogTitle">Explorar animes</h2>
+              </div>
+              <div class="catalog-meta">
+                <span id="cacheStatus" class="cache-status"></span>
+                <span id="resultCount" class="result-count"></span>
+              </div>
+            </div>
+
+            <section class="character-results" id="characterResultsSection" hidden>
+              <div class="section-heading compact">
+                <h2>Personagens encontrados</h2>
+                <span id="characterResultCount" class="result-count"></span>
+              </div>
+              <div id="characterResults" class="character-result-grid"></div>
+            </section>
+
+            <section class="profile-results" id="profileResultsSection" hidden>
+              <div class="section-heading compact">
+                <h2>Perfis encontrados</h2>
+                <span id="profileResultCount" class="result-count"></span>
+              </div>
+              <div id="profileResults" class="profile-result-grid"></div>
+            </section>
+
+            <div id="animeGrid" class="anime-grid" aria-live="polite"></div>
+            <button id="loadMoreButton" class="load-more" type="button" hidden>Carregar mais</button>
+          </div>
+
+          <aside class="side-panel" aria-label="Sua conta local">
+            <div class="profile-panel">
+              <div class="panel-heading">
+                <span>Perfil</span>
+                <button class="text-link" type="button" data-open-profile>Editar</button>
+              </div>
+              <label class="sr-only" for="profileName">Nome do perfil</label>
+              <input id="profileName" class="profile-input" type="text" maxlength="24" placeholder="Seu nome" />
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-heading">
+                <span>Favoritos</span>
+                <span id="favoriteCount" class="panel-count">0</span>
+              </div>
+              <div id="favoritesList" class="compact-list"></div>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-heading">
+                <span>Lista de desejos</span>
+                <span id="wishlistCount" class="panel-count">0</span>
+              </div>
+              <div id="wishlistList" class="compact-list"></div>
+            </div>
+
+            <div class="list-panel">
+              <div class="panel-heading">
+                <span>Histórico</span>
+                <span id="historyCount" class="panel-count">0</span>
+              </div>
+              <div id="historyList" class="compact-list"></div>
+            </div>
+
+            <div class="ad-slot ad-rectangle">
+              <span>Publicidade</span>
+            </div>
+          </aside>
+        </section>
+      </main>
+
+      <section class="profile-view" id="profileView" hidden aria-labelledby="profileTitle">
+        <aside class="profile-nav" aria-label="Navegação do perfil">
+          <button class="icon-button" type="button" data-close-profile aria-label="Voltar">‹</button>
+          <nav>
+            <button class="profile-nav-item" type="button" data-close-profile>⌂<span>Início</span></button>
+            <button class="profile-nav-item is-active" type="button">♡<span>Perfil</span></button>
+            <button class="profile-nav-item" type="button" data-quick-trending>⌕<span>Explorar</span></button>
+            <button class="profile-nav-item" type="button">▦<span>Gêneros</span></button>
+            <button class="profile-nav-item" type="button">⚙<span>Config.</span></button>
+          </nav>
+        </aside>
+
+        <div class="profile-content">
+          <section class="profile-hero-card">
+            <div class="profile-banner" id="profileBanner">
+              <img id="profileBannerImage" class="profile-banner-image" src="" alt="" hidden />
+              <div class="profile-identity">
+                <div class="profile-avatar-wrap">
+                  <img id="profileAvatar" class="profile-avatar" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+                  <button class="avatar-edit" type="button" data-edit-profile aria-label="Editar avatar">✎</button>
+                </div>
+                <div>
+                  <div class="profile-title-row">
+                    <i id="profileStatus" class="status-dot status-online status-dot-large" aria-label="Online" title="Online"></i>
+                    <h1 id="profileTitle">Akira</h1>
+                    <span class="level-badge" id="profileLevelBadge">Nível 24</span>
+                  </div>
+                  <p id="profileHandle">@akirapulse</p>
+                  <p id="profileMember">Membro desde...</p>
+                  <p id="profileXpText">8.450 / 12.000 XP</p>
+                  <p id="profileQuote">"O sofrimento é o que nos torna fortes."</p>
+                  <div class="profile-actions">
+                    <button class="primary-action" type="button" data-edit-profile>Editar Perfil</button>
+                    <button class="secondary-action" type="button" data-open-chat hidden>Chat</button>
+                    <button class="secondary-action" type="button" data-share-profile>Compartilhar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-metrics">
+              <div><strong id="metricWatched">86</strong><span>Animes assistidos</span></div>
+              <div><strong id="metricPlan">12</strong><span>Planos para assistir</span></div>
+              <div><strong id="metricFavorites">0</strong><span>Favoritos</span></div>
+              <div><strong id="metricHours">156h</strong><span>Tempo total</span></div>
+            </div>
+          </section>
+
+          <div class="profile-grid">
+            <div class="profile-main-panel">
+              <nav class="profile-tabs" aria-label="Abas do perfil">
+                <button class="is-active" type="button">Resumo</button>
+                <button type="button">Animes</button>
+                <button type="button">Listas</button>
+                <button type="button">Personagens</button>
+              </nav>
+
+              <section class="profile-section profile-section-completed">
+                <div class="section-heading compact profile-section-heading">
+                  <h2>Animes assistidos</h2>
+                  <span class="profile-section-count" data-profile-count>0 itens</span>
+                </div>
+                <div class="profile-card-grid" id="profileCompletedGrid"></div>
+              </section>
+
+              <section class="profile-section profile-section-favorites">
+                <div class="section-heading compact profile-section-heading">
+                  <h2>Animes favoritos</h2>
+                  <span class="profile-section-count" data-profile-count>0 itens</span>
+                </div>
+                <div class="profile-card-grid" id="profileAnimeFavorites"></div>
+              </section>
+
+              <section class="profile-section profile-section-wishlist">
+                <div class="section-heading compact profile-section-heading">
+                  <h2>Lista de desejos</h2>
+                  <span class="profile-section-count" data-profile-count>0 itens</span>
+                </div>
+                <div class="profile-card-grid" id="profileWishlist"></div>
+              </section>
+            </div>
+
+            <aside class="profile-aside">
+              <section class="profile-info-card">
+                <div class="section-heading compact">
+                  <h2>Sobre mim</h2>
+                  <button class="text-link" type="button" data-edit-profile>Editar</button>
+                </div>
+                <p id="profileBio">Apaixonado por animes desde sempre.</p>
+                <ul class="profile-facts">
+                  <li><span>⌖</span><strong id="profileLocation">Brasil</strong></li>
+                  <li><span>□</span><strong id="profileAge">18 anos</strong></li>
+                  <li><span>♡</span><strong id="profileTag">Anime Lover</strong></li>
+                </ul>
+              </section>
+
+              <section class="profile-info-card">
+                <div class="section-heading compact">
+                  <h2>Estatísticas</h2>
+                  <button class="text-link" type="button">Ver todas</button>
+                </div>
+                <div class="stat-donut"><span id="statHours">156h<small>Total</small></span></div>
+                <div class="stat-list">
+                  <span><i></i>Assistidos <strong>86h</strong></span>
+                  <span><i></i>Planos <strong>28h</strong></span>
+                </div>
+              </section>
+
+              <section class="profile-info-card">
+                <div class="section-heading compact">
+                  <h2>Personagens favoritos</h2>
+                  <span class="profile-section-count" data-profile-count>0 itens</span>
+                </div>
+                <div class="ranking-list" id="profileFavoriteCharacters"></div>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="sticky-ad" id="stickyAd" role="complementary" aria-label="Publicidade fixa">
+      <span>Publicidade</span>
+      <button class="icon-button small" id="closeStickyAd" type="button" aria-label="Fechar publicidade">×</button>
+    </div>
+
+    <div class="details-shell" id="detailsShell" hidden>
+      <div class="details-backdrop" data-close-details></div>
+      <article class="details-panel" id="detailsPanel" aria-labelledby="detailsTitle">
+        <button class="icon-button details-close" type="button" data-close-details aria-label="Fechar">×</button>
+        <div id="detailsContent"></div>
+      </article>
+    </div>
+
+    <div class="profile-editor" id="profileEditor" hidden>
+      <div class="details-backdrop" data-close-editor></div>
+      <form class="editor-panel" id="profileForm">
+        <div class="section-heading">
+          <div>
+            <div class="section-kicker">Perfil</div>
+            <h2>Editar Perfil</h2>
+          </div>
+          <button class="icon-button" type="button" data-close-editor aria-label="Fechar">×</button>
+        </div>
+
+        <div class="editor-grid">
+          <label>
+            Nome
+            <input name="name" maxlength="24" required />
+          </label>
+          <label>
+            Usuário
+            <input name="username" maxlength="24" required />
+            <span class="field-hint" id="profileUsernameStatus">Usuário único no AniPulse.</span>
+          </label>
+          <label>
+            Status
+            <select name="status">
+              <option value="online">Online</option>
+              <option value="away">Ausente</option>
+              <option value="dnd">Não perturbe</option>
+              <option value="offline">Offline</option>
+            </select>
+          </label>
+          <div class="locked-level wide">
+            <div>
+              <span>Nível atual</span>
+              <strong id="editorLevel">Nível 24</strong>
+            </div>
+            <div>
+              <span>Progresso</span>
+              <strong id="editorXp">8.450 / 12.000 XP</strong>
+            </div>
+          </div>
+          <label class="inline-check">
+            <input name="hideAge" type="checkbox" />
+            Ocultar idade
+          </label>
+          <label>
+            Idade
+            <input name="age" type="number" min="1" max="120" required />
+          </label>
+          <label class="inline-check">
+            <input name="hideLocation" type="checkbox" />
+            Ocultar localização
+          </label>
+          <label class="inline-check wide">
+            <input name="hideChatBubble" type="checkbox" />
+            Ocultar chat do perfil
+          </label>
+          <label>
+            País
+            <input name="country" maxlength="32" />
+          </label>
+          <label>
+            Estado
+            <input name="stateRegion" maxlength="32" />
+          </label>
+          <label class="wide">
+            Estilo
+            <select name="tag"></select>
+            <span class="field-hint" id="unlockedTags"></span>
+          </label>
+
+          <div class="media-editor wide">
+            <div class="media-editor-heading">
+              <strong>Avatar</strong>
+              <span>Dispositivo, URL e recorte</span>
+            </div>
+            <div class="media-editor-body">
+              <img id="avatarPreview" class="editor-avatar-preview" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+              <div>
+                <label>
+                  Escolher do dispositivo
+                  <input name="avatarFile" type="file" accept="image/*" />
+                </label>
+                <label>
+                  Avatar por URL
+                  <input name="avatar" placeholder="Cole um link de imagem ou deixe vazio" />
+                </label>
+                <div class="range-grid">
+                  <label>Horizontal <input name="avatarX" type="range" min="0" max="100" /></label>
+                  <label>Vertical <input name="avatarY" type="range" min="0" max="100" /></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="media-editor wide">
+            <div class="media-editor-heading">
+              <strong>Banner</strong>
+              <span>Dispositivo, URL, GIF e posicionamento</span>
+            </div>
+            <div class="media-editor-body banner-edit-body">
+              <div id="bannerPreview" class="editor-banner-preview"></div>
+              <div>
+                <label>
+                  Escolher do dispositivo
+                  <input name="bannerFile" type="file" accept="image/*,.gif" />
+                </label>
+                <label>
+                  Banner por URL
+                  <input name="banner" placeholder="Cole um link de imagem ou GIF" />
+                </label>
+                <div class="range-grid">
+                  <label>Horizontal <input name="bannerX" type="range" min="0" max="100" /></label>
+                  <label>Vertical <input name="bannerY" type="range" min="0" max="100" /></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label class="wide">
+            Frase
+            <input name="quote" maxlength="96" />
+            <span class="field-hint">Limite de 96 caracteres.</span>
+          </label>
+          <label class="wide">
+            Sobre mim
+            <textarea name="bio" rows="4" maxlength="240"></textarea>
+          </label>
+        </div>
+
+        <div class="editor-actions">
+          <button class="secondary-action" type="button" data-reset-profile>Restaurar padrão</button>
+          <button class="primary-action" type="submit">Salvar perfil</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="chat-dock" id="chatDock" hidden>
+      <button class="chat-bubble" id="chatBubble" type="button" aria-label="Abrir conversa">
+        <img id="chatBubbleAvatar" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+        <span></span>
+        <strong id="chatUnreadBadge" hidden>0</strong>
+      </button>
+
+      <section class="chat-window" id="chatWindow" hidden aria-label="Conversa">
+        <header class="chat-header">
+          <button class="icon-button small chat-back-button" type="button" data-chat-back aria-label="Voltar para conversas" hidden>‹</button>
+          <img id="chatAvatar" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+          <div>
+            <strong id="chatTitle">Chat</strong>
+            <small id="chatSubtitle">Online agora</small>
+          </div>
+          <button class="icon-button small" type="button" data-chat-voice aria-label="Ligação de voz">☎</button>
+          <button class="icon-button small" type="button" data-chat-minimize aria-label="Minimizar chat">−</button>
+          <button class="icon-button small" type="button" data-chat-close aria-label="Fechar chat">×</button>
+        </header>
+
+        <div class="chat-thread-list" id="chatThreadList" hidden></div>
+
+        <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
+
+        <form class="chat-form" id="chatForm">
+          <input id="chatFileInput" type="file" accept="image/*,video/*" hidden />
+          <div class="chat-tools" aria-label="Anexos">
+            <button class="icon-button small chat-attach-button" type="button" data-chat-attach aria-label="Enviar foto ou vídeo">↥</button>
+          </div>
+          <label class="sr-only" for="chatInput">Mensagem</label>
+          <textarea id="chatInput" maxlength="700" rows="1" placeholder="Mensagem ou @anime"></textarea>
+          <button class="primary-action" type="submit">Enviar</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="call-screen" id="callScreen" hidden aria-label="Chamada de voz">
+      <div class="call-screen-bg"></div>
+      <div class="call-panel">
+        <div class="call-topline">
+          <span>Chamada de voz</span>
+          <div class="call-duration-pill" aria-label="Tempo de ligação">
+            <span>Tempo</span>
+            <strong id="callTimer">00:00</strong>
+          </div>
+        </div>
+        <div class="call-participants">
+          <div class="call-person" data-call-person="me">
+            <div class="call-avatar-ring" id="callMeRing">
+              <img id="callMeAvatar" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+            </div>
+            <strong id="callMeName">Você</strong>
+            <small>Você</small>
+          </div>
+          <div class="call-wave">☎</div>
+          <div class="call-person" data-call-person="them">
+            <div class="call-avatar-ring" id="callThemRing">
+              <img id="callThemAvatar" src="IMAGENS/LOGO%20DO%20SITE.png" alt="" />
+            </div>
+            <strong id="callThemName">Contato</strong>
+            <small id="callStatus">Conectado</small>
+          </div>
+        </div>
+        <div class="call-share-preview" id="callSharePreview" hidden>
+          <video id="callShareVideo" autoplay muted playsinline></video>
+          <span id="callShareLabel">Transmitindo tela</span>
+          <button class="call-fullscreen-button" type="button" data-call-fullscreen aria-label="Abrir transmissão em tela cheia">⛶</button>
+        </div>
+        <div class="call-share-controls">
+          <label>
+            Qualidade
+            <select id="callShareQuality">
+              <option value="sd">480P</option>
+              <option value="balanced">720P</option>
+              <option value="hd" selected>1080P</option>
+              <option value="qhd">1440P</option>
+              <option value="uhd">2160P</option>
+            </select>
+          </label>
+          <label>
+            FPS
+            <select id="callShareFps">
+              <option value="25">25</option>
+              <option value="30" selected>30</option>
+              <option value="60">60</option>
+              <option value="120">120</option>
+              <option value="144">144</option>
+            </select>
+          </label>
+          <button class="secondary-action call-share-button" type="button" data-call-share>Transmitir tela</button>
+        </div>
+        <div class="call-actions">
+          <button class="secondary-action" type="button" data-chat-mute>Silenciar</button>
+          <button class="primary-action call-end-button" type="button" data-chat-end-call>Encerrar</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js?v=design-refresh-v43" defer></script>
+  </body>
+</html>

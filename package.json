@@ -1,0 +1,10 @@
+{
+  "name": "anipulse",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "python -m http.server 5177",
+    "update": "node update-cache.js",
+    "update:watch": "node update-cache.js --watch --interval-minutes=30"
+  }
+}

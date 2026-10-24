@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="AniPulse">
+  <defs>
+    <linearGradient id="g" x1="92" y1="60" x2="426" y2="452" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A78BFA" />
+      <stop offset=".5" stop-color="#EC4899" />
+      <stop offset="1" stop-color="#FB7185" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="132" fill="#111426" />
+  <rect x="22" y="22" width="468" height="468" rx="112" fill="url(#g)" />
+  <path d="M144 364 232 140h52l88 224h-57l-16-46h-84l-16 46h-56Zm88-94h50l-25-72-25 72Z" fill="#fff" />
+  <path d="M320 151h49v213h-49z" fill="#fff" opacity=".9" />
+</svg>
