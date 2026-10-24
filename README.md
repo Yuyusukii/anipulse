@@ -1,93 +1,111 @@
-<div align="center">
-
-<img src="icon.svg" alt="AniPulse" width="110" />
-
-# AniPulse
-
-**Catálogo de animes moderno, escuro e responsivo, feito 100% com HTML, CSS e JavaScript puro.**
-
-<p>
-  <img src="https://img.shields.io/badge/status-projeto%20de%20teste-f472b6?style=for-the-badge" alt="Status: projeto de teste" />
-  <img src="https://img.shields.io/badge/deploy-não%20vai%20ao%20ar-6b7280?style=for-the-badge" alt="Deploy: não vai ao ar" />
+<p align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:080808,45:1f1b3a,80:7c3aed,100:ec4899&height=230&section=header&text=AniPulse&fontSize=72&fontAlign=50&fontAlignY=36&fontColor=ffffff&animation=fadeIn&desc=seu%20radar%20de%20animes%20%C2%B7%20projeto%20de%20teste&descSize=20&descAlign=50&descAlignY=58"/>
 </p>
-<p>
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/PWA-5A0FC8?style=flat-square&logo=pwa&logoColor=white" alt="PWA" />
-  <img src="https://img.shields.io/badge/AniList-GraphQL-02A9FF?style=flat-square&logo=anilist&logoColor=white" alt="AniList GraphQL" />
-</p>
-
-</div>
-
-> [!WARNING]
-> **Este é apenas um projeto de teste.** O AniPulse foi criado para estudo e experimentação de interface. Ele **não está publicado e não vai para o ar**: não existe versão online, domínio ou serviço oficial. Tudo aqui roda só localmente, na sua máquina.
 
 <p align="center">
-  <img src="screenshots/01-home.png" alt="Página inicial do AniPulse" width="100%" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=21&pause=1200&color=A78BFA&center=true&vCenter=true&width=640&lines=Cat%C3%A1logo+de+animes+com+dados+reais+da+AniList;Trending%2C+busca%2C+detalhes%2C+perfil+e+PWA;HTML+%2B+CSS+%2B+JavaScript+puro%2C+sem+frameworks;Projeto+de+teste+%E2%80%94+n%C3%A3o+vai+ao+ar"/>
 </p>
+
+<p align="center">
+<img alt="Status" src="https://img.shields.io/badge/status-projeto%20de%20teste-ec4899?style=for-the-badge" />
+<img alt="Deploy" src="https://img.shields.io/badge/deploy-n%C3%A3o%20vai%20ao%20ar-1f1b3a?style=for-the-badge" />
+<img alt="AniList" src="https://img.shields.io/badge/AniList-GraphQL-02A9FF?style=for-the-badge&logo=anilist&logoColor=ffffff" />
+<img alt="PWA" src="https://img.shields.io/badge/PWA-ready-7c3aed?style=for-the-badge&logo=pwa&logoColor=ffffff" />
+</p>
+
+<p align="center">
+<a href="#-sobre">Sobre</a>
+&nbsp;·&nbsp;
+<a href="#-preview">Preview</a>
+&nbsp;·&nbsp;
+<a href="#-funcionalidades">Funcionalidades</a>
+&nbsp;·&nbsp;
+<a href="#-galeria">Galeria</a>
+&nbsp;·&nbsp;
+<a href="#-rodando-localmente">Rodar localmente</a>
+</p>
+
+<p align="center">
+<img src="docs/hero.png" alt="AniPulse rodando no desktop e no celular" width="100%" />
+</p>
+
+> [!WARNING]
+> **Isto é só um teste.** O AniPulse é um projeto pessoal de estudo de interface. Ele **não está publicado e não vai para o ar**: não tem domínio, hospedagem nem versão oficial. Tudo que aparece aqui roda apenas localmente.
 
 ---
 
-## ✨ Sobre o projeto
+## 🌙 Sobre
 
-O **AniPulse** é um site de descoberta de animes com visual escuro, detalhes em gradiente roxo/rosa e cara de app. Ele busca dados reais na API pública da [AniList](https://anilist.co) (trending, gêneros, personagens, recomendações e trailers oficiais) e guarda as preferências do usuário direto no navegador.
+O **AniPulse** é um site de descoberta de animes com visual escuro, gradientes roxo/rosa e cara de aplicativo. Os dados são reais e vêm da API pública da [AniList](https://anilist.co): trending, gêneros, personagens, recomendações e trailers oficiais. Favoritos, listas e o perfil ficam salvos no próprio navegador.
 
-Não tem back-end, banco de dados nem framework: é só abrir um servidor local e usar.
+O site não tem back-end, banco de dados nem framework. É HTML, CSS e JavaScript puro: abriu um servidor local, funcionou.
 
-## 📸 Prints do site rodando
+| Descobrir | Explorar | Acompanhar |
+| :---: | :---: | :---: |
+| Destaque do momento e carrossel de trending | Busca com filtros por gênero, ano, status e ordem | Favoritos, lista de desejos, histórico e perfil com XP |
+
+## 🎞️ Preview
+
+<p align="center">
+<img src="docs/preview.gif" alt="Tour pelas telas do AniPulse" width="100%" />
+</p>
+
+## ✨ Funcionalidades
+
+- 🔥 **Trending ao vivo**: destaque principal e carrossel com os animes em alta na AniList
+- 🔎 **Busca completa**: por anime, personagem ou estúdio, com filtros de gênero, ano, status e ordenação
+- 🎬 **Página de detalhes**: sinopse, nota, duração, gêneros, episódios, personagens e trailer oficial
+- ❤️ **Favoritos e listas**: favoritos, lista de desejos e histórico salvos no `localStorage`
+- 👤 **Perfil gamificado**: avatar, banner, bio, nível, XP, estatísticas e personagens favoritos
+- 💬 **Chat demo**: chat e chamadas simulados no próprio navegador, só para testar a interface
+- 📱 **Responsivo e PWA**: funciona bem no celular e pode ser "instalado" como app
+- ⚡ **Cache inteligente**: script em Node salva um cache da AniList para a página nunca abrir vazia
+
+## 🖼️ Galeria
 
 <table>
-  <tr>
-    <td width="50%"><img src="screenshots/02-trending-filtros.png" alt="Carrossel de trending e filtros" /></td>
-    <td width="50%"><img src="screenshots/03-catalogo.png" alt="Catálogo de animes" /></td>
-  </tr>
-  <tr>
-    <td align="center"><sub><b>Carrossel de trending + filtros</b></sub></td>
-    <td align="center"><sub><b>Catálogo com notas, gêneros e ações rápidas</b></sub></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="screenshots/04-detalhes.png" alt="Página de detalhes do anime" /></td>
-    <td width="50%"><img src="screenshots/05-detalhes-personagens.png" alt="Episódios e personagens" /></td>
-  </tr>
-  <tr>
-    <td align="center"><sub><b>Detalhes com sinopse, gêneros e trailer</b></sub></td>
-    <td align="center"><sub><b>Lista de episódios e personagens</b></sub></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="screenshots/06-perfil.png" alt="Perfil do usuário" /></td>
-    <td width="50%" align="center"><img src="screenshots/07-mobile.png" alt="Versão mobile" width="55%" /></td>
-  </tr>
-  <tr>
-    <td align="center"><sub><b>Perfil com nível, XP e estatísticas</b></sub></td>
-    <td align="center"><sub><b>Layout responsivo no celular</b></sub></td>
-  </tr>
+<tr>
+<td width="50%"><img src="docs/screens/02-trending-filtros.png" alt="Trending e filtros" /></td>
+<td width="50%"><img src="docs/screens/03-catalogo.png" alt="Catálogo" /></td>
+</tr>
+<tr>
+<td align="center"><b>Trending + filtros</b><br><sub>Carrossel dos animes em alta e filtros do catálogo</sub></td>
+<td align="center"><b>Catálogo</b><br><sub>Cards com nota, ano, gêneros e ações rápidas</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screens/04-detalhes.png" alt="Detalhes do anime" /></td>
+<td width="50%"><img src="docs/screens/05-detalhes-personagens.png" alt="Episódios e personagens" /></td>
+</tr>
+<tr>
+<td align="center"><b>Detalhes</b><br><sub>Sinopse, gêneros, player e trailer oficial</sub></td>
+<td align="center"><b>Episódios e personagens</b><br><sub>Lista de episódios e elenco completo</sub></td>
+</tr>
+<tr>
+<td colspan="2"><img src="docs/screens/06-perfil.png" alt="Perfil do usuário" /></td>
+</tr>
+<tr>
+<td colspan="2" align="center"><b>Perfil</b><br><sub>Nível, XP, estatísticas, listas e "sobre mim"</sub></td>
+</tr>
 </table>
 
-## 🚀 Funcionalidades
+## 🧰 Tecnologias
 
-| | Recurso | Descrição |
-|---|---|---|
-| 🔥 | **Trending** | Destaque principal e carrossel com os animes em alta, ao vivo da AniList |
-| 🔎 | **Busca e filtros** | Busca por nome, personagens e estúdios; filtros por gênero, ano, status e ordenação |
-| 🎬 | **Página de detalhes** | Sinopse, gêneros, duração, nota, personagens, recomendações e trailer oficial |
-| ❤️ | **Favoritos e listas** | Favoritos, lista de desejos e histórico salvos no `localStorage` |
-| 👤 | **Perfil gamificado** | Avatar, banner, bio, nível e XP, estatísticas e personagens favoritos |
-| 💬 | **Chat (demo)** | Chat e chamadas simulados localmente, só para testar a interface |
-| 📱 | **Responsivo + PWA** | Funciona no celular e pode ser "instalado" via manifesto e service worker |
-| ⚡ | **Cache offline** | Script em Node que salva um cache da AniList para a página nunca abrir vazia |
+<p align="center">
+<img src="https://skillicons.dev/icons?i=html,css,js,nodejs&theme=dark" />
+</p>
 
-## 🛠️ Tecnologias
+| Camada | Tecnologia |
+| --- | --- |
+| Interface | HTML5, CSS3 (grid, glassmorphism, tema escuro) |
+| Lógica | JavaScript puro, sem frameworks |
+| Dados | AniList GraphQL API |
+| App | Service Worker + Web App Manifest (PWA) |
+| Cache | Script Node.js (`update-cache.js`) |
+| Armazenamento | `localStorage` do navegador |
 
-- **HTML5 + CSS3**: layout com grid, glassmorphism e tema escuro
-- **JavaScript (vanilla)**: toda a lógica do app, sem frameworks
-- **AniList GraphQL API**: fonte dos dados de animes e personagens
-- **Service Worker + Web App Manifest**: suporte a PWA
-- **Node.js**: script opcional de atualização do cache
+## 💻 Rodando localmente
 
-## 💻 Como rodar localmente
-
-> Lembrando: é um projeto de teste, feito para rodar **só na sua máquina**.
+> Lembrando que é um projeto de teste, feito para rodar **só na sua máquina**.
 
 ```bash
 git clone https://github.com/Yuyusukii/anipulse.git
@@ -95,45 +113,63 @@ cd anipulse
 python -m http.server 5177
 ```
 
-Depois abra **http://localhost:5177** no navegador.
+Abra **http://localhost:5177** e pronto.
 
-### Cache opcional
+<details>
+<summary><b>Cache opcional da AniList</b></summary>
+
+<br>
 
 ```bash
 # atualiza o cache uma vez
 node update-cache.js
 
-# ou fica atualizando a cada 30 minutos
+# fica atualizando a cada 30 minutos
 node update-cache.js --watch --interval-minutes=30
 ```
 
-O site tenta carregar `data/anime-cache.json` primeiro e depois busca os dados ao vivo na AniList. Se a API estiver fora do ar, o cache mantém a página preenchida.
+O site tenta carregar `data/anime-cache.json` primeiro e depois busca os dados ao vivo. Se a AniList estiver fora do ar, o cache mantém a página preenchida.
 
-## 📁 Estrutura
+</details>
 
-```
+<details>
+<summary><b>Estrutura do projeto</b></summary>
+
+<br>
+
+```text
 anipulse/
-├── index.html            # estrutura da página
-├── styles.css            # estilos principais
-├── redesign.css          # camada visual do redesign
-├── app.js                # lógica do app (busca, detalhes, perfil, chat...)
-├── service-worker.js     # cache do PWA
-├── manifest.webmanifest  # manifesto do PWA
-├── update-cache.js       # script Node que gera o cache da AniList
-├── start-auto-update.ps1 # atalho no PowerShell para o modo contínuo
-├── IMAGENS/              # logo / avatar padrão
-└── screenshots/          # prints usados neste README
+├── index.html             estrutura da página
+├── styles.css             estilos principais
+├── redesign.css           camada visual do redesign
+├── app.js                 lógica do app (busca, detalhes, perfil, chat...)
+├── service-worker.js      cache do PWA
+├── manifest.webmanifest   manifesto do PWA
+├── update-cache.js        gera o cache da AniList
+├── start-auto-update.ps1  modo contínuo no PowerShell
+├── IMAGENS/               logo / avatar padrão
+└── docs/                  imagens deste README
 ```
+
+</details>
 
 ## ⚖️ Aviso
 
-- Projeto **sem fins comerciais**, feito para estudo. **Não está hospedado em lugar nenhum.**
-- Os dados e as imagens dos animes vêm da API pública da [AniList](https://anilist.co) e pertencem aos seus respectivos detentores.
-- Os trailers são os **oficiais**, incorporados do YouTube. O projeto não hospeda vídeos e não faz scraping de sites de terceiros.
-- Os espaços de "Publicidade" são só marcadores visuais, sem anúncios reais.
+| | |
+| --- | --- |
+| 🧪 | Projeto **de teste**, sem fins comerciais. **Não está hospedado e não vai ao ar.** |
+| 🗂️ | Dados e imagens dos animes vêm da [AniList](https://anilist.co) e pertencem aos respectivos detentores. |
+| ▶️ | Os trailers são os **oficiais**, incorporados do YouTube. Nenhum vídeo é hospedado aqui. |
+| 📢 | Os espaços de "Publicidade" são só marcadores visuais, sem anúncios reais. |
 
----
+<p align="center">
+<img src="https://capsule-render.vercel.app/api?type=rect&color=0:7c3aed,100:080808&height=1"/>
+</p>
 
-<div align="center">
-  <sub>Feito com 💜 por <a href="https://github.com/Yuyusukii">Yuyusukii</a> · projeto de teste, não vai ao ar</sub>
-</div>
+<p align="center">
+<sub>feito por <a href="https://github.com/Yuyusukii">Yukki</a> · só um teste, não vai ao ar 💜</sub>
+</p>
+
+<p align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:ec4899,40:7c3aed,100:080808&height=120&section=footer"/>
+</p>
